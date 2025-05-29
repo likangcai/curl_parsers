@@ -2,7 +2,7 @@
 # ----------------------------
 # @Author:    影子
 # @Software:  PyCharm
-# @时间:       2025/5/28 下午2:26
+# @时间:       2025/5/28 下午11:26
 # @项目:       curl_parser
 # @FileName:  generator.py
 # ----------------------------
@@ -73,9 +73,12 @@ def to_python_code(parsed: Dict[str, Any]) -> str:
             code += f"    '{key}': (None, '{value}'),\n"
         code += '}\n'
 
+    # 构建url
+    code += f"\nurl = '{url}'\n"
+
     # 构建请求
     code += '\nresponse = requests.' + method + '('
-    code += f'\n    "{url}",'
+    code += '\n    url,'
 
     if headers:
         code += '\n    headers=headers,'

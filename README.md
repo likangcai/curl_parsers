@@ -6,16 +6,21 @@ curl命令转python代码，支持json格式数据转换
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  pip install curl_parser
+2.  或者下载源码，解压后运行run.py文件
 
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  终端命令行输入：
+    python run.py 'curl -X POST https://api.example.com/submit' --output python     # 输出python代码
+    python run.py 'curl -X POST https://api.example.com/submit' --output json       # 输出json格式数据
+2.  调用函数：
+    curl_commd = """ curl -X POST https://api.example.com/submit """
+    print(to_python_code(parsed))     # 输出python代码
+    print(to_json(parsed))            # 输出json格式数据
+    print(parse_curl(curl_commd))     # 解析curl命令并返回字典数据
+
 
 
 #### 参与贡献

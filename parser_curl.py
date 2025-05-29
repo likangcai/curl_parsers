@@ -2,7 +2,7 @@
 # ----------------------------
 # @Author:    影子
 # @Software:  PyCharm
-# @时间:       2025/5/28 下午2:25
+# @时间:       2025/5/28 下午12:05
 # @项目:       curl_parser
 # @FileName:  parser_curl.py
 # ----------------------------
@@ -14,7 +14,7 @@ from typing import Dict, Any
 from urllib.parse import parse_qs, unquote
 
 
-def parse_urlencoded(data: str) -> dict:
+def _parse_urlencoded(data: str) -> dict:
     """解析 urlencoded 格式的字符串，返回字典"""
     try:
         return {k: unquote(v[0]).replace('+', ' ') for k, v in parse_qs(data).items()}
@@ -80,7 +80,7 @@ def parse_curl(curl_command: str) -> Dict[str, Any]:
                 data = args[i]
                 if '=' in data or '&' in data:
                     # 解析 form-urlencoded 数据
-                    parsed_data = parse_urlencoded(data)
+                    parsed_data = _parse_urlencoded(data)
                     result['form_data'].update(parsed_data)
                 else:
                     # 非 key=value 形式，视为 raw 或 JSON
