@@ -1,10 +1,7 @@
 # curl_parser
 
 #### 介绍
-curl命令转python代码或json格式数据
-
-#### 软件架构
-软件架构说明
+curl命令转python代码，支持json格式数据转换
 
 
 #### 安装教程

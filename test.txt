@@ -1,0 +1,115 @@
+curl -X POST https://api.example.com/upload-binary \
+     -H "Authorization: Bearer your_token_here" \
+     -H "Content-Type: application/octet-stream" \
+     --data-binary @example.bin
+
+
+curl 'https://route.showapi.com/9-2?appKey=your_appKey' \
+    -H 'Content-Type: application/x-www-form-urlencoded' \
+    -d 'needIndex=0' \
+    -d 'areaCode=530700' \
+    -d 'need3HourForcast=0' \
+    -d 'needAlarm=0' \
+    -d 'area=%E4%B8%BD%E6%B1%9F' \
+    -d 'needHourData=0' \
+    -d 'needMoreDay=0'
+
+
+curl 'https://127.0.0.1:8899/distributor-base-info/find-page' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'Accept-Language: zh-Hans' \
+  -H 'Authorization: Bearer eyJhbGciOiJSUzI1DiFYq4dhuXRjXVfoA' \
+  -H 'Content-Type: application/json' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36' \
+  -H 'centerCode: 9002185' \
+  -H 'centerName: %E6%B5%8B%E8%AF%95%E8%90%A5%E9%94%80%E4%B8%AD%E5%BF%83' \
+  -H 'sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"' \
+  --data-raw '{"filter":{"headquartersCode":"900609","businessCode":null,"distributorNameOrCode":"08000480","mainNameOrCode":null,"orgCode":"","centerName":"测试营销中心","regionName":null},"pageNum":1,"pageSize":15,"orders":[]}'
+
+
+curl 'https://127.0.0.1:8899/version.json?t=1748424141194' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'Accept-Language: zh-CN,zh;q=0.9' \
+  -H 'Connection: keep-alive' \
+  -b 'sensorsdata2015jssdkcross=%7B%22dis04d89963a9-26011c51-2073600-196b3d64e59151c%22%7D' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Windows"'
+
+
+curl -X GET "https://api.example.com/resource"
+
+curl -X GET "https://api.example.com/resource?name=John&id=123"
+
+curl -X GET "https://api.example.com/resource" \
+     -H "Authorization: Bearer YOUR_TOKEN"
+
+curl -X PUT "https://api.example.com/resource/123" \
+     -H "Content-Type: application/json" \
+     -d '{"name":"Jane","age":25}'
+
+curl -X PUT "https://api.example.com/resource/123" \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer YOUR_TOKEN" \
+     -d '{"name":"Jane"}'
+
+curl -X PUT "https://api.example.com/upload/123" \
+     -H "Content-Type: application/octet-stream" \
+     --data-binary @example.bin
+
+curl -X DELETE "https://api.example.com/resource/123"
+
+curl -X DELETE "https://api.example.com/resource/123" \
+     -H "Authorization: Bearer YOUR_TOKEN"
+
+curl -X DELETE "https://api.example.com/resource" \
+     -H "Content-Type: application/json" \
+     -d '{"id":123}'
+
+curl -X POST https://api.example.com/submit
+
+curl -X POST https://api.example.com/submit \
+     -H "Content-Type: application/json" \
+     -d '{"username":"john","password":"secret"}'
+
+curl -X POST https://api.example.com/login \
+     -d "username=admin&password=123456"
+
+curl -X POST https://api.example.com/upload \
+     -F "file=@/path/to/file.txt"
+
+curl -X POST https://api.example.com/upload \
+     -F "file=@/path/to/photo.jpg" \
+     -F "description=My+Profile+Photo"
+
+curl -X POST https://api.example.com/upload \
+     --data-binary @/path/to/data.bin \
+     -H "Content-Type: application/octet-stream"
+
+curl -X POST https://api.example.com/secure \
+     -u username:password \
+     -d "key=value"
+
+curl -X POST https://api.example.com/api \
+     -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+     -H "Content-Type: application/json" \
+     -d '{"action":"create"}'
+
+curl -X POST https://api.example.com/endpoint \
+     -H "Cookie: sessionid=abc123xyz" \
+     -d '{"action":"update"}'
+
+
+curl -X POST https://api.example.com/endpoint \
+     -b "sessionid=abc123xyz" \
+     -d '{"action":"update"}'
+
+curl -X POST https://api.example.com/test \
+     -k \
+     -d "key=value"
+
+
+
