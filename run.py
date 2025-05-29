@@ -6,10 +6,11 @@
 # @项目:       curl_parser
 # @FileName:  run.py
 # ----------------------------
-from parser_curl import parse_curl
+import argparse
+
 from generator import to_python_code
 from generator import to_json_code
-import argparse
+from parser_curl import parse_curl
 
 
 def cli_run():
@@ -26,7 +27,11 @@ def cli_run():
     args = parser.parse_args()
 
     curl_cmd = args.curl_command
-    parsed = parse_curl(curl_cmd)
+    try:
+        parsed = parse_curl(curl_cmd)
+    except Exception as e:
+        print(f"解析 curl 命令失败: {e}")
+        return
 
     if args.output == 'python':
         print(to_python_code(parsed))
@@ -34,32 +39,50 @@ def cli_run():
         print(to_json_code(parsed))
 
 
-def curl_python_object(command: str):
-    """ curl命令转python对象 """
-    return parse_curl(command)
+class Uncurl:
+    """
+    解码curl命令
+    """
 
+    def __init__(self, command: str):
+        if not isinstance(command, str) or not command.strip():
+            raise ValueError("curl命令不能为空")
+        try:
+            self._data = parse_curl(command)
+        except Exception as e:
+            raise ValueError(f"无效的 curl 命令: {e}")
 
-def to_json(data: dict) -> str:
-    """ curl命令转json对象 """
-    return to_json_code(data)
+    @property
+    def data(self) -> dict:
+        """
+        获取解析后的 curl 数据
+        :return: 解析结果字典
+        """
+        return self._data
 
+    def to_python(self) -> str:
+        """
+        将curl命令解析结果转为python代码
+        :return: python代码
+        """
+        return to_python_code(self._data)
 
-def to_python(data: dict) -> str:
-    """ curl命令转python代码 """
-    return to_python_code(data)
+    def to_json(self) -> str:
+        """
+        将curl命令解析结果转为JSON字符串
+        :return: JSON字符串
+        """
+        return to_json_code(self._data)
 
 
 if __name__ == "__main__":
-    cli_run()
+    # cli_run()
 
- #    curl_commd = """
- #
- # curl -X POST https://api.example.com/submit
- #
- #    """
- #
- #    parsed = parse_curl(curl_commd)
- #    # print(parsed)
- #    print(to_python_code(parsed))
- #    # print(to_json(parsed))
+    curl_command = """
+     curl -X POST https://api.example.com/submit
+    """
 
+    parsed = Uncurl(curl_command)
+    print(parsed.to_python())
+    print(parsed.to_json())
+    print(parsed.data)
