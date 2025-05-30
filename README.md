@@ -1,4 +1,4 @@
-# curl_parser
+# curl_parsers
 
 #### 介绍
 curl命令转python代码，支持json格式数据转换
@@ -6,7 +6,7 @@ curl命令转python代码，支持json格式数据转换
 
 #### 安装教程
 
-1.  pip install curl_parser
+1.  pip install curl_parsers
 2.  或者下载源码，解压后运行run.py文件
 
 

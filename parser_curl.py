@@ -3,7 +3,7 @@
 # @Author:    影子
 # @Software:  PyCharm
 # @时间:       2025/5/28 下午12:05
-# @项目:       curl_parser
+# @项目:       curl_parsers
 # @FileName:  parser_curl.py
 # ----------------------------
 """解析curl命令"""

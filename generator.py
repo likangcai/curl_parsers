@@ -3,7 +3,7 @@
 # @Author:    影子
 # @Software:  PyCharm
 # @时间:       2025/5/28 下午11:26
-# @项目:       curl_parser
+# @项目:       curl_parsers
 # @FileName:  generator.py
 # ----------------------------
 """输出转换后的代码"""
