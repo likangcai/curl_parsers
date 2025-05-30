@@ -22,7 +22,7 @@ def _parse_urlencoded(data: str) -> dict:
         return {}
 
 
-def parse_curl(curl_command: str) -> Dict[str, Any]:
+def _parse_curl(curl_command: str) -> Dict[str, Any]:
     """解析 curl 命令字符串，提取关键参数"""
     curl_command = curl_command.strip().replace('\\\n', ' ').replace('\n', ' ')
     args = shlex.split(curl_command)

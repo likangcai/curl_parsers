@@ -8,9 +8,9 @@
 # ----------------------------
 import argparse
 
-from generator import to_python_code
-from generator import to_json_code
-from parser_curl import parse_curl
+from generator import _to_python_code
+from generator import _to_json_code
+from parser_curl import _parse_curl
 
 
 def cli_run():
@@ -26,63 +26,60 @@ def cli_run():
 
     args = parser.parse_args()
 
-    curl_cmd = args.curl_command
+    curl_cmd = args.curl_command.strip()
     try:
-        parsed = parse_curl(curl_cmd)
-    except Exception as e:
+        parsed = _parse_curl(curl_cmd)
+    except ValueError as e:
         print(f"解析 curl 命令失败: {e}")
         return
 
     if args.output == 'python':
-        print(to_python_code(parsed))
+        print(_to_python_code(parsed))
     elif args.output == 'json':
-        print(to_json_code(parsed))
+        print(_to_json_code(parsed))
 
 
-class Uncurl:
+def curl_parser(command: str) -> dict:
     """
-    解码curl命令
+    将curl命令解析为python对象
+    :param command: curl命令
+    :return: 解析结果
     """
+    if not command.strip():
+        raise ValueError("Invalid curl command")
+    try:
+        return _parse_curl(command.strip())
+    except Exception as e:
+        raise ValueError(f"Failed to parse curl command: {e}") from e
 
-    def __init__(self, command: str):
-        if not isinstance(command, str) or not command.strip():
-            raise ValueError("curl命令不能为空")
-        try:
-            self._data = parse_curl(command)
-        except Exception as e:
-            raise ValueError(f"无效的 curl 命令: {e}")
 
-    @property
-    def data(self) -> dict:
-        """
-        获取解析后的 curl 数据
-        :return: 解析结果字典
-        """
-        return self._data
+def to_python(command: str) -> str:
+    """
+    将curl命令解析结果转为python代码
+    :return: python代码
+    """
+    data = curl_parser(command)
+    return _to_python_code(data)
 
-    def to_python(self) -> str:
-        """
-        将curl命令解析结果转为python代码
-        :return: python代码
-        """
-        return to_python_code(self._data)
 
-    def to_json(self) -> str:
-        """
-        将curl命令解析结果转为JSON字符串
-        :return: JSON字符串
-        """
-        return to_json_code(self._data)
+def to_json(command: str) -> str:
+    """
+    将curl命令解析结果转为JSON字符串
+    :return: JSON字符串
+    """
+    data = curl_parser(command)
+    return _to_json_code(data)
 
 
 if __name__ == "__main__":
-    # cli_run()
+    cli_run()
 
-    curl_command = """
-     curl -X POST https://api.example.com/submit
-    """
-
-    parsed = Uncurl(curl_command)
-    print(parsed.to_python())
-    print(parsed.to_json())
-    print(parsed.data)
+    # # 示例测试
+    # curl_command = """
+    #  curl -X POST https://api.example.com/submit
+    # """
+    #
+    # parsed = curl_parser(curl_command)
+    # print(to_python(curl_command))
+    # print(to_json(curl_command))
+    # print(parsed)

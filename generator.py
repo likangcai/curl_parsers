@@ -12,7 +12,7 @@ from typing import Dict, Any
 from pprint import pformat
 
 
-def to_python_code(parsed: Dict[str, Any]) -> str:
+def _to_python_code(parsed: Dict[str, Any]) -> str:
     """ 将解析后的curl转换为python代码 """
     method = parsed['method'].lower()
     url = parsed['url']
@@ -124,7 +124,7 @@ def _replace_none_in_json(obj):
         return obj
 
 
-def to_json_code(parsed: dict) -> str:
+def _to_json_code(parsed: dict) -> str:
     """
     将解析后的 curl 请求信息转换为 JSON 字符串。
     :param parsed: 解析后的请求信息字典
