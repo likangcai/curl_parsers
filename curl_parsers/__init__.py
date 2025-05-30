@@ -4,7 +4,7 @@
 # @Software:  PyCharm
 # @时间:       2025/5/30 上午10:22
 # @项目:       curl_parsers
-# @FileName:  __init__.py.py
+# @FileName:  __init__.py
 # ----------------------------
 from .parser_curl import _parse_curl
 from .generator import _to_python_code, _to_json_code
