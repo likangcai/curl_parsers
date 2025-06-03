@@ -8,6 +8,7 @@
 # ----------------------------
 from .parser_curl import _parse_curl
 from .generator import _to_python_code, _to_json_code
+from .form_data_boundary import curl_boundary
 
 
 def parse_curl(command: str) -> dict:
@@ -33,7 +34,10 @@ def to_python(command: str) -> str:
         str: 生成的 Python 代码字符串
     """
     data = parse_curl(command)
-    return _to_python_code(data)
+    if "multipart/form-data; boundary" in data.get("headers").get("Content-Type"):
+        return curl_boundary(command)
+    else:
+        return _to_python_code(data)
 
 
 def to_json(command: str) -> str:
