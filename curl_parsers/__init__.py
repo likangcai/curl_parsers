@@ -6,12 +6,14 @@
 # @项目:       curl_parsers
 # @FileName:  __init__.py
 # ----------------------------
+from typing import Dict, Any, Optional
+
 from .parser_curl import _parse_curl
 from .generator import _to_python_code, _to_json_code
 from .form_data_boundary import curl_boundary
 
 
-def parse_curl(command: str) -> dict:
+def parse_curl(command: str) -> Dict[str, Any]:
     """将 curl 命令解析为 Python 对象
     Args:
         command (str): 待解析的 curl 命令字符串
@@ -26,6 +28,14 @@ def parse_curl(command: str) -> dict:
     return _parse_curl(command)
 
 
+def is_multipart_form_data(headers: Optional[Dict[str, str]]) -> bool:
+    """判断请求头是否为 multipart/form-data; boundary= 类型"""
+    if not headers:
+        return False
+    content_type = headers.get("Content-Type", "")
+    return content_type.startswith("multipart/form-data; boundary=")
+
+
 def to_python(command: str) -> str:
     """将 curl 命令解析结果转为 Python 代码
     Args:
@@ -34,7 +44,8 @@ def to_python(command: str) -> str:
         str: 生成的 Python 代码字符串
     """
     data = parse_curl(command)
-    if "multipart/form-data; boundary" in data.get("headers").get("Content-Type"):
+    headers = data.get("headers")
+    if is_multipart_form_data(headers):
         return curl_boundary(command)
     else:
         return _to_python_code(data)
