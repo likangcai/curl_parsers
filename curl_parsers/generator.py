@@ -76,6 +76,15 @@ def _to_python_code(parsed: Dict[str, Any]) -> str:
     # 构建url
     code += f"\nurl = '{url}'\n"
 
+    # 构建cookies
+    if cookies:
+        cookie_dict = {}
+        for item in cookies.strip().split(';'):
+            if '=' in item:
+                k, v = map(str.strip, item.split('=', 1))
+                cookie_dict[k] = v
+        code += f'\ncookies = {cookie_dict}\n'
+
     # 构建请求
     code += '\nresponse = requests.' + method + '('
     code += '\n    url,'
@@ -96,12 +105,7 @@ def _to_python_code(parsed: Dict[str, Any]) -> str:
         username, password = auth.split(':', 1)
         code += f'\n    auth=("{username}", "{password}"),'
     if cookies:
-        cookie_dict = {}
-        for item in cookies.strip().split(';'):
-            if '=' in item:
-                k, v = map(str.strip, item.split('=', 1))
-                cookie_dict[k] = v
-        code += f'\n    cookies={cookie_dict},'
+        code += '\n    cookies=cookies,'
     if not verify:
         code += '\n    verify=False,'
 
