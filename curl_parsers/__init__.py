@@ -28,7 +28,7 @@ def parse_curl(command: str) -> Dict[str, Any]:
     return _parse_curl(command)
 
 
-def is_multipart_form_data(headers: Optional[Dict[str, str]]) -> bool:
+def _is_multipart_form_data(headers: Optional[Dict[str, str]]) -> bool:
     """判断请求头是否为 multipart/form-data; boundary= 类型"""
     if not headers:
         return False
@@ -45,7 +45,7 @@ def to_python(command: str) -> str:
     """
     data = parse_curl(command)
     headers = data.get("headers")
-    if is_multipart_form_data(headers):
+    if _is_multipart_form_data(headers):
         return curl_boundary(command)
     else:
         return _to_python_code(data)
