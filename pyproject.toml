@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "curl_parsers"
-version = "0.2.0"
+version = "0.2.1"
 authors = [
     { name = "影子", email = "yxdszlkc@163.com" }
 ]
