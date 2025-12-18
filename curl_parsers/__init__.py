@@ -12,6 +12,9 @@ from .parser_curl import _parse_curl
 from .generator import _to_python_code, _to_json_code
 from .form_data_boundary import curl_boundary
 
+# 定义导出公共接口
+__all__ = ["parse_curl", "to_python", "to_json"]
+
 
 def parse_curl(command: str) -> Dict[str, Any]:
     """将 curl 命令解析为 Python 对象
